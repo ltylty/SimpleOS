@@ -15,13 +15,13 @@ features = ["spin_no_std"]
 
 # 使用 `cargo build` 编译时需要的配置
 [profile.dev]
-panic = "abort" # 禁用panic时栈展开
+# panic = "abort" # 禁用panic时栈展开
 
 # 使用 `cargo build --release` 编译时需要的配置
 [profile.release]
-panic = "abort" # 禁用 panic 时栈展开
+# panic = "abort" # 禁用 panic 时栈展开
 
 [[bin]]
 name = "simple_os"
-test = false
+test = true
 bench = false

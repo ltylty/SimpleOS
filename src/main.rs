@@ -2,6 +2,8 @@
 #![no_main] // 禁用所有 Rust 层级的入口点
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::test_runner)]
+#![reexport_test_harness_main = "test_main"]
+
 
 mod vga_buffer;
 
@@ -18,7 +20,9 @@ fn panic(info: &PanicInfo) -> ! {
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
-    // panic!("Some panic message");
+
+    #[cfg(test)]
+    test_main();
 
     loop {}
 }
@@ -30,4 +34,11 @@ pub fn test_runner(tests: &[&dyn Fn()]) {
     for test in tests {
         test();
     }
+}
+
+#[test_case]
+fn trivial_assertion() {
+    print!("trivial assertion... ");
+    assert_eq!(1, 1);
+    println!("[ok]");
 }

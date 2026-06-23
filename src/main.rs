@@ -7,7 +7,8 @@ use core::panic::PanicInfo;
 
 /// 这个函数将在 panic 时被调用
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
 
@@ -15,6 +16,7 @@ fn panic(_info: &PanicInfo) -> ! {
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
+    // panic!("Some panic message");
 
     loop {}
 }
